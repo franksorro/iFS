@@ -17,13 +17,13 @@ The verification involves the use of the product ID and the shared key. The poss
 ```
 let sideMenuVC = sideMenuViewController() 
 if self.navigationController != nil {
-	iFS.SideMenu.open(direction: .left, container: self.navigationController!, injectViewController: sideMenuVC)
+	FsManager.SideMenu.shared.open(direction: .left, container: self.navigationController!, injectViewController: sideMenuVC)
 }
 ```
 
 ## Parsing JSON to codable model
 ```
-extension iFS.Models {
+extension FsManager.Models {
 
     class Base: Codable {
         let update: Bool
@@ -99,17 +99,17 @@ let jsonUser: JSON(
 	]
 )
 
-let user: iFS.Models.User = iFS.Models.shared.decode(json: jsonUser)
+let user: FsManager.Models.User = FsManager.Models.shared.decode(json: jsonUser)
 ```
 
 ## Read/write Realm model
 Save to Realm entire model:
 ```
-let user: iFS.Models.User = iFS.Models.shared.decode(json: jsonUser, toRealm: true, toRealmUpdate: true)
+let user: FsManager.Models.User = FsManager.Models.shared.decode(json: jsonUser, toRealm: true, toRealmUpdate: true)
 ```
 Save to Realm only codable necessary model:
 ```
-extension iFS.Models {
+extension FsManager.Models {
 
     class User: Base {
         let data: RLM_User?

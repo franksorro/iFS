@@ -219,7 +219,8 @@ extension FsManager {
 
         public func decode<T: Codable>(_ json: JSON,
                                        toRealm: Bool = false,
-                                       toRealmUpdate: Bool = false) -> T? {
+                                       toRealmUpdate: Bool = false,
+                                       toRealmContentArray: Bool = false) -> T? {
             guard
                 let data = try? json.rawData(),
                 let result = try? JSONDecoder().decode(T.self, from: data)
@@ -233,7 +234,7 @@ extension FsManager {
             if toRealm {
                 RealmManager.shared.save(nil,
                                          content: result,
-                                         type: .realmObject,
+                                         type: toRealmContentArray ? .realmObjectArray : .realmObject,
                                          isUpdate: toRealmUpdate)
             }
 
