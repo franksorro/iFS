@@ -78,7 +78,10 @@ extension FsManager {
 
                 var request = self.getUrlRequest(url: url, useCache: useCache)
                 request.httpMethod = String(describing: method)
-                request.httpBody = self.addParams(params)
+
+                if params != nil {
+                    request.httpBody = self.addParams(params!)
+                }
 
                 headers.forEach({ (key, value) in
                     request.addValue(value, forHTTPHeaderField: key)
