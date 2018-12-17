@@ -72,7 +72,7 @@ extension FsManager {
         }
 
         /// Convert to Date a TimeInterval starting from 1970-01-01 considering also summer time (optional default on)
-        open static func getDateFrom1970(_ timeInterval: TimeInterval, noDayLightTime: Bool = false) -> Date {
+        public func getDateFrom1970(_ timeInterval: TimeInterval, noDayLightTime: Bool = false) -> Date {
             var dateRif = Date(timeIntervalSince1970: timeInterval / 1000)
 
             if !noDayLightTime {

@@ -6,8 +6,6 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
-import RealmSwift
-
 extension FsManager {
 
     public class Models: NSObject {

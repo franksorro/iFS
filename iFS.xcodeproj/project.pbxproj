@@ -23,6 +23,7 @@
 		F72AA90E1FA0C26E000CFE5B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72AA90D1FA0C26E000CFE5B /* Extensions.swift */; };
 		F730F7171E097590005478F4 /* iFS.h in Headers */ = {isa = PBXBuildFile; fileRef = F730F7161E097590005478F4 /* iFS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F730F7231E097678005478F4 /* iFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F730F7221E097678005478F4 /* iFS.swift */; };
+		F7782AD721C7AD06009C3C53 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7782AD621C7AD06009C3C53 /* CommonCrypto.framework */; };
 		F7D339AE2167A65900BF2A1A /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D339AD2167A65900BF2A1A /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +46,7 @@
 		F730F7161E097590005478F4 /* iFS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFS.h; sourceTree = "<group>"; };
 		F730F7181E097590005478F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F730F7221E097678005478F4 /* iFS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iFS.swift; sourceTree = "<group>"; };
-		F79F07E12091C67C0031A86B /* module.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
+		F7782AD621C7AD06009C3C53 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CommonCrypto.framework; sourceTree = "<group>"; };
 		F7D339AD2167A65900BF2A1A /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7782AD721C7AD06009C3C53 /* CommonCrypto.framework in Frameworks */,
 				F71F3917216B88DF00B21E56 /* Realm.framework in Frameworks */,
 				F7D339AE2167A65900BF2A1A /* SwiftyJSON.framework in Frameworks */,
 				F71F3918216B88DF00B21E56 /* RealmSwift.framework in Frameworks */,
@@ -63,26 +65,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F714979520735FB00046121D /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				F714979620735FBC0046121D /* CommonCrypto */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		F714979620735FBC0046121D /* CommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				F79F07E12091C67C0031A86B /* module.map */,
-			);
-			path = CommonCrypto;
-			sourceTree = "<group>";
-		};
 		F730F7091E097590005478F4 = {
 			isa = PBXGroup;
 			children = (
-				F714979520735FB00046121D /* Modules */,
 				F7579E051E0AD0010075F1E3 /* Frameworks */,
 				F730F7151E097590005478F4 /* iFS */,
 				F730F7141E097590005478F4 /* Products */,
@@ -122,6 +107,7 @@
 		F7579E051E0AD0010075F1E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7782AD621C7AD06009C3C53 /* CommonCrypto.framework */,
 				F71F3915216B88DF00B21E56 /* Realm.framework */,
 				F71F3916216B88DF00B21E56 /* RealmSwift.framework */,
 				F7D339AD2167A65900BF2A1A /* SwiftyJSON.framework */,
@@ -217,7 +203,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
