@@ -14,15 +14,16 @@ extension FsManager {
 
         private override init() {}
 
-        public var sideMenuContainerView: UIView!
-        public var sideMenuView: UIView!
-        public var noAreaView: UIView! //---Clear view with closing tap for the area not covered by the sideMenu---
-        public var direction: Types.SideMenuDirections!
-        public var injectedViewController: UIViewController!
-        public var leadingAnchor: NSLayoutConstraint!
-        public var topAnchor: NSLayoutConstraint!
-        public var trailingAnchor: NSLayoutConstraint!
-        public var bottomAnchor: NSLayoutConstraint!
+        private var sideMenuContainerView: UIView!
+        private var sideMenuView: UIView!
+        private var noAreaView: UIView! //---Clear view with closing tap for the area not covered by the sideMenu---
+        private var direction: Types.SideMenuDirections!
+        private var injectedViewController: UIViewController!
+        private var leadingAnchor: NSLayoutConstraint!
+        private var topAnchor: NSLayoutConstraint!
+        private var trailingAnchor: NSLayoutConstraint!
+        private var bottomAnchor: NSLayoutConstraint!
+
         public var padding: CGFloat = 50
 
         public func open(direction: Types.SideMenuDirections = .left,
@@ -102,19 +103,19 @@ extension FsManager {
             sideMenuView.layer.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
 
             leadingAnchor = sideMenuView.leadingAnchor.constraint(equalTo: sideMenuContainerView.leadingAnchor,
-                                                                constant: leadingAnchorValue)
+                                                                  constant: leadingAnchorValue)
             topAnchor = sideMenuView.topAnchor.constraint(equalTo: sideMenuContainerView.topAnchor,
-                                                        constant: topAnchorValue)
+                                                          constant: topAnchorValue)
             trailingAnchor = sideMenuView.trailingAnchor.constraint(equalTo: sideMenuContainerView.trailingAnchor,
-                                                                  constant: trailingAnchorValue)
+                                                                    constant: trailingAnchorValue)
             bottomAnchor = sideMenuView.bottomAnchor.constraint(equalTo: sideMenuContainerView.bottomAnchor,
-                                                              constant: bottomAnchorValue)
+                                                                constant: bottomAnchorValue)
 
             NSLayoutConstraint.activate([leadingAnchor, topAnchor, trailingAnchor, bottomAnchor] )
 
             injectViewController!.didMove(toParentViewController: container)
 
-            var directionToSwipe: UISwipeGestureRecognizerDirection
+            var directionToSwipe: UISwipeGestureRecognizer.Direction
             SideMenu.shared.direction = direction
 
             var frame = sideMenuView.bounds
@@ -167,9 +168,9 @@ extension FsManager {
             }
 
             noAreaView.frame = CGRect(x: vwNoAreaOriginX,
-                                    y: vwNoAreaOriginY,
-                                    width: vwNoAreaWidth,
-                                    height: vwNoAreaHeight)
+                                      y: vwNoAreaOriginY,
+                                      width: vwNoAreaWidth,
+                                      height: vwNoAreaHeight)
 
             let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.closeFromNoArea))
             swipeGesture.direction = directionToSwipe
@@ -184,8 +185,7 @@ extension FsManager {
             UIView.animate(withDuration: TimeInterval(0.3), animations: {
                 self.sideMenuView.frame = frame
                 self.sideMenuView.layoutIfNeeded()
-                let backgroundColor = self.sideMenuContainerView.backgroundColor?.withAlphaComponent(0.5)
-                self.sideMenuContainerView.backgroundColor = backgroundColor
+                self.sideMenuContainerView.backgroundColor = self.sideMenuContainerView.backgroundColor?.withAlphaComponent(0.5)
 
             }, completion: { (_) in
                 UIApplication.shared.endIgnoringInteractionEvents()
@@ -226,13 +226,13 @@ extension FsManager {
                 let direction: Types.SideMenuDirections = self.direction
                 switch direction {
                 case .left:
-                    frame.origin.x = sideMenuView.frame.width * -1
+                    frame.origin.x = sideMenuContainerView.frame.width * -1
 
                 case .right:
                     frame.origin.x = sideMenuContainerView.frame.width
 
                 case .top:
-                    frame.origin.y = sideMenuView.frame.height * -1
+                    frame.origin.y = sideMenuContainerView.frame.height * -1
 
                 case .bottom:
                     frame.origin.y = sideMenuContainerView.frame.height
