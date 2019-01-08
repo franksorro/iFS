@@ -147,6 +147,7 @@ extension FsManager {
                          content: Any,
                          type: Types.RealmSaveTypes = .json,
                          isUpdate: Bool = false,
+                         deleteBeforeInsert: Bool = false,
                          pkValueForDelete: Any? = nil,
                          completion: @escaping (Types.ErrorLevels) -> Void = { _ in }) {
             DispatchQueue.global(qos: .background).async {
@@ -161,7 +162,7 @@ extension FsManager {
                 switch type {
                 case .realmObject:
                     guard
-                        let realmObject = content as? Object
+                        let realmContent = content as? Object
                         else {
                             FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObject)")
                             completion(.realmParseObject)
@@ -169,7 +170,13 @@ extension FsManager {
                     }
 
                     realm.beginWrite()
-                    realm.add(realmObject, update: isUpdate)
+
+                    if deleteBeforeInsert && realmObject != nil {
+                        let realmObjectToDelete = realm.objects(realmObject!)
+                        realm.delete(realmObjectToDelete)
+                    }
+
+                    realm.add(realmContent, update: isUpdate)
 
                 case .realmObjectArray:
                     guard
@@ -189,6 +196,11 @@ extension FsManager {
                     }
 
                     realm.beginWrite()
+
+                    if deleteBeforeInsert && realmObject != nil {
+                        let realmObjectToDelete = realm.objects(realmObject!)
+                        realm.delete(realmObjectToDelete)
+                    }
 
                     realmObjects.forEach({ (realmObject) in
                         realm.add(realmObject, update: isUpdate)
@@ -219,6 +231,11 @@ extension FsManager {
                     }
 
                     realm.beginWrite()
+
+                    if deleteBeforeInsert && realmObject != nil {
+                        let realmObjectToDelete = realm.objects(realmObject!)
+                        realm.delete(realmObjectToDelete)
+                    }
 
                     jsons.arrayValue.forEach({ (json) in
                         guard
@@ -253,6 +270,12 @@ extension FsManager {
                     }
 
                     realm.beginWrite()
+
+                    if deleteBeforeInsert && realmObject != nil {
+                        let realmObjectToDelete = realm.objects(realmObject!)
+                        realm.delete(realmObjectToDelete)
+                    }
+
                     realm.create(realmObject!, value: jRealm, update: isUpdate)
                 }
 

@@ -23,7 +23,7 @@ public typealias InfoResult = ((
 )
 
 public typealias SideMenuResult = ((
-    _ result: Bool) -> ()
+    _ result: Bool) -> Void
 )
 
 public struct Types {

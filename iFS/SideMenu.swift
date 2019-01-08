@@ -185,7 +185,9 @@ extension FsManager {
             UIView.animate(withDuration: TimeInterval(0.3), animations: {
                 self.sideMenuView.frame = frame
                 self.sideMenuView.layoutIfNeeded()
-                self.sideMenuContainerView.backgroundColor = self.sideMenuContainerView.backgroundColor?.withAlphaComponent(0.5)
+                if let bgColor = self.sideMenuContainerView.backgroundColor {
+                    self.sideMenuContainerView.backgroundColor = bgColor.withAlphaComponent(0.5)
+                }
 
             }, completion: { (_) in
                 UIApplication.shared.endIgnoringInteractionEvents()
