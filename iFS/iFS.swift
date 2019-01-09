@@ -5,6 +5,8 @@
 //  Copyright © 2016 Francesco Sorrentino. All rights reserved.
 //
 
+import Foundation
+
 public class FsManager: NSObject {
 
     public static let shared: FsManager = FsManager()

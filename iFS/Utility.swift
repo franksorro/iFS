@@ -6,6 +6,10 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
+import Foundation
+import UIKit
+import SwiftyJSON
+
 extension FsManager {
 
     public class Utility: NSObject {

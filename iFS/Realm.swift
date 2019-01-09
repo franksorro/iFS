@@ -6,7 +6,9 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
+import SwiftyJSON
 
 extension FsManager {
 
@@ -24,13 +26,6 @@ extension FsManager {
         }
 
         private var connection: Realm? {
-            /*do {
-                return try Realm()
-
-            } catch {
-                print("Realm error: \(error.localizeDescription)")
-                return nil
-            }*/
             guard let realm = try? Realm() else {
                 FsManager.shared.debug("Error: \(Types.ErrorLevels.noRealmConnection)")
                 return nil
@@ -151,142 +146,149 @@ extension FsManager {
                          pkValueForDelete: Any? = nil,
                          completion: @escaping (Types.ErrorLevels) -> Void = { _ in }) {
             DispatchQueue.global(qos: .background).async {
-                guard
-                    let realm = self.get()
-                    else {
-                        FsManager.shared.debug("Error: \(Types.ErrorLevels.noRealmConnection)")
-                        completion(.noRealmConnection)
-                        return
-                }
-
-                switch type {
-                case .realmObject:
+                autoreleasepool {
                     guard
-                        let realmContent = content as? Object
+                        let realm = self.get()
                         else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObject)")
-                            completion(.realmParseObject)
+                            FsManager.shared.debug("Error: \(Types.ErrorLevels.noRealmConnection)")
+                            completion(.noRealmConnection)
                             return
                     }
 
-                    realm.beginWrite()
-
-                    if deleteBeforeInsert && realmObject != nil {
-                        let realmObjectToDelete = realm.objects(realmObject!)
-                        realm.delete(realmObjectToDelete)
-                    }
-
-                    realm.add(realmContent, update: isUpdate)
-
-                case .realmObjectArray:
-                    guard
-                        let realmObjects = content as? [Object]
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObjectArray)")
-                            completion(.realmParseObjectArray)
-                            return
-                    }
-
-                    guard
-                        realmObjects.count > 0
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObjectArrayEmpty)")
-                            completion(.realmParseObjectArrayEmpty)
-                            return
-                    }
-
-                    realm.beginWrite()
-
-                    if deleteBeforeInsert && realmObject != nil {
-                        let realmObjectToDelete = realm.objects(realmObject!)
-                        realm.delete(realmObjectToDelete)
-                    }
-
-                    realmObjects.forEach({ (realmObject) in
-                        realm.add(realmObject, update: isUpdate)
-                    })
-
-                case .jsonArray:
-                    guard realmObject != nil
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.realmObjectNotDefined)")
-                            completion(.realmObjectNotDefined)
-                            return
-                    }
-
-                    guard
-                        let jsons = content as? JSON
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParse)")
-                            completion(.jsonParse)
-                            return
-                    }
-
-                    guard
-                        jsons.arrayValue.count > 0
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParseArrayEmpty)")
-                            completion(.jsonParseArrayEmpty)
-                            return
-                    }
-
-                    realm.beginWrite()
-
-                    if deleteBeforeInsert {
-                        let realmObjectToDelete = realm.objects(realmObject!)
-                        realm.delete(realmObjectToDelete)
-                    }
-
-                    jsons.arrayValue.forEach({ (json) in
+                    switch type {
+                    case .realmObject:
                         guard
-                            let jData = try? json.rawData(),
-                            let jRealm = try? JSONSerialization.jsonObject(with: jData, options: .mutableContainers)
+                            let realmContent = content as? Object
                             else {
-                                FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParseFromItemArray)")
-                                realm.cancelWrite()
-                                completion(.jsonParseFromItemArray)
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObject)")
+                                completion(.realmParseObject)
                                 return
                         }
 
+                        realm.beginWrite()
+
+                        if deleteBeforeInsert && realmObject != nil {
+                            let realmObjectToDelete = realm.objects(realmObject!)
+                            realm.delete(realmObjectToDelete)
+                        }
+
+                        if realmObject != nil {
+                            realm.create(realmObject!, value: realmContent, update: true)
+
+                        } else {
+                            realm.add(realmContent, update: isUpdate)
+                        }
+
+                    case .realmObjectArray:
+                        guard
+                            let realmObjects = content as? [Object]
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObjectArray)")
+                                completion(.realmParseObjectArray)
+                                return
+                        }
+
+                        guard
+                            realmObjects.count > 0
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.realmParseObjectArrayEmpty)")
+                                completion(.realmParseObjectArrayEmpty)
+                                return
+                        }
+
+                        realm.beginWrite()
+
+                        if deleteBeforeInsert && realmObject != nil {
+                            let realmObjectToDelete = realm.objects(realmObject!)
+                            realm.delete(realmObjectToDelete)
+                        }
+
+                        realmObjects.forEach({ (realmObject) in
+                            realm.add(realmObject, update: isUpdate)
+                        })
+
+                    case .jsonArray:
+                        guard realmObject != nil
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.realmObjectNotDefined)")
+                                completion(.realmObjectNotDefined)
+                                return
+                        }
+
+                        guard
+                            let jsons = content as? JSON
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParse)")
+                                completion(.jsonParse)
+                                return
+                        }
+
+                        guard
+                            jsons.arrayValue.count > 0
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParseArrayEmpty)")
+                                completion(.jsonParseArrayEmpty)
+                                return
+                        }
+
+                        realm.beginWrite()
+
+                        if deleteBeforeInsert {
+                            let realmObjectToDelete = realm.objects(realmObject!)
+                            realm.delete(realmObjectToDelete)
+                        }
+
+                        jsons.arrayValue.forEach({ (json) in
+                            guard
+                                let jData = try? json.rawData(),
+                                let jRealm = try? JSONSerialization.jsonObject(with: jData, options: .mutableContainers)
+                                else {
+                                    FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParseFromItemArray)")
+                                    realm.cancelWrite()
+                                    completion(.jsonParseFromItemArray)
+                                    return
+                            }
+
+                            realm.create(realmObject!, value: jRealm, update: isUpdate)
+                        })
+
+                    default:
+                        guard realmObject != nil
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.realmObjectNotDefined)")
+                                completion(.realmObjectNotDefined)
+                                return
+                        }
+
+                        guard
+                            let json = content as? JSON,
+                            let jData = try? json.rawData(),
+                            let jRealm = try? JSONSerialization.jsonObject(with: jData, options: .mutableContainers)
+                            else {
+                                FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParse)")
+                                completion(.jsonParse)
+                                return
+                        }
+
+                        realm.beginWrite()
+
+                        if deleteBeforeInsert {
+                            let realmObjectToDelete = realm.objects(realmObject!)
+                            realm.delete(realmObjectToDelete)
+                        }
+
                         realm.create(realmObject!, value: jRealm, update: isUpdate)
-                    })
-
-                default:
-                    guard realmObject != nil
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.realmObjectNotDefined)")
-                            completion(.realmObjectNotDefined)
-                            return
                     }
 
-                    guard
-                        let json = content as? JSON,
-                        let jData = try? json.rawData(),
-                        let jRealm = try? JSONSerialization.jsonObject(with: jData, options: .mutableContainers)
-                        else {
-                            FsManager.shared.debug("Error: \(Types.ErrorLevels.jsonParse)")
-                            completion(.jsonParse)
-                            return
+                    do {
+                        try realm.commitWrite()
+                        completion(.realmTransactionSuccess)
+
+                    } catch {
+                        FsManager.shared.debug("Error: \(Types.ErrorLevels.realmTransactionFailure)")
+                        realm.cancelWrite()
+                        completion(.realmTransactionFailure)
                     }
-
-                    realm.beginWrite()
-
-                    if deleteBeforeInsert {
-                        let realmObjectToDelete = realm.objects(realmObject!)
-                        realm.delete(realmObjectToDelete)
-                    }
-
-                    realm.create(realmObject!, value: jRealm, update: isUpdate)
-                }
-
-                do {
-                    try realm.commitWrite()
-                    completion(.realmTransactionSuccess)
-
-                } catch {
-                    FsManager.shared.debug("Error: \(Types.ErrorLevels.realmTransactionFailure)")
-                    realm.cancelWrite()
-                    completion(.realmTransactionFailure)
                 }
             }
         }

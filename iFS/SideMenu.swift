@@ -6,6 +6,9 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
+import Foundation
+import UIKit
+
 extension FsManager {
 
     public class SideMenu: NSObject {

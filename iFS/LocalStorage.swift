@@ -6,6 +6,8 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
+import Foundation
+
 extension FsManager {
 
     public class LocalStorage: NSObject {

@@ -6,7 +6,9 @@
 //  Copyright © 2017 Francesco Sorrentino. All rights reserved.
 //
 
+import UIKit
 import CommonCrypto
+import SwiftyJSON
 
 extension UIApplication {
 

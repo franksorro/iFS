@@ -7,6 +7,7 @@
 //
 
 import AdSupport
+import UIKit
 
 extension FsManager {
 

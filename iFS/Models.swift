@@ -6,7 +6,9 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
+import SwiftyJSON
 
 extension FsManager {
 

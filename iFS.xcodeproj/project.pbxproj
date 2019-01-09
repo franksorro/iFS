@@ -21,7 +21,6 @@
 		F71F3917216B88DF00B21E56 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71F3915216B88DF00B21E56 /* Realm.framework */; };
 		F71F3918216B88DF00B21E56 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71F3916216B88DF00B21E56 /* RealmSwift.framework */; };
 		F72AA90E1FA0C26E000CFE5B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72AA90D1FA0C26E000CFE5B /* Extensions.swift */; };
-		F730F7171E097590005478F4 /* iFS.h in Headers */ = {isa = PBXBuildFile; fileRef = F730F7161E097590005478F4 /* iFS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F730F7231E097678005478F4 /* iFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F730F7221E097678005478F4 /* iFS.swift */; };
 		F7782AD721C7AD06009C3C53 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7782AD621C7AD06009C3C53 /* CommonCrypto.framework */; };
 		F7D339AE2167A65900BF2A1A /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D339AD2167A65900BF2A1A /* SwiftyJSON.framework */; };
@@ -43,7 +42,6 @@
 		F71F3916216B88DF00B21E56 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		F72AA90D1FA0C26E000CFE5B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F730F7131E097590005478F4 /* iFS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iFS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F730F7161E097590005478F4 /* iFS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFS.h; sourceTree = "<group>"; };
 		F730F7181E097590005478F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F730F7221E097678005478F4 /* iFS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iFS.swift; sourceTree = "<group>"; };
 		F7782AD621C7AD06009C3C53 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CommonCrypto.framework; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 				F716C1F921552B9F000ECE98 /* Device.swift */,
 				F72AA90D1FA0C26E000CFE5B /* Extensions.swift */,
 				F716C20121552DB3000ECE98 /* Files.swift */,
-				F730F7161E097590005478F4 /* iFS.h */,
 				F730F7221E097678005478F4 /* iFS.swift */,
 				F716C20721552E4A000ECE98 /* InAppPurchase.swift */,
 				F730F7181E097590005478F4 /* Info.plist */,
@@ -122,7 +119,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F730F7171E097590005478F4 /* iFS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
