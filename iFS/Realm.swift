@@ -232,7 +232,7 @@ extension FsManager {
 
                     realm.beginWrite()
 
-                    if deleteBeforeInsert && realmObject != nil {
+                    if deleteBeforeInsert {
                         let realmObjectToDelete = realm.objects(realmObject!)
                         realm.delete(realmObjectToDelete)
                     }
@@ -271,7 +271,7 @@ extension FsManager {
 
                     realm.beginWrite()
 
-                    if deleteBeforeInsert && realmObject != nil {
+                    if deleteBeforeInsert {
                         let realmObjectToDelete = realm.objects(realmObject!)
                         realm.delete(realmObjectToDelete)
                     }

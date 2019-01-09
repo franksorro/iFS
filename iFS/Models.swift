@@ -6,6 +6,8 @@
 //  Copyright © 2018 Francesco Sorrentino. All rights reserved.
 //
 
+import RealmSwift
+
 extension FsManager {
 
     public class Models: NSObject {
@@ -216,6 +218,7 @@ extension FsManager {
         }
 
         public func decode<T: Codable>(_ json: JSON,
+                                       toRealmObject: Object.Type? = nil,
                                        toRealm: Bool = false,
                                        toRealmUpdate: Bool = false,
                                        toRealmDeleteFirst: Bool = false) -> T? {
@@ -230,7 +233,7 @@ extension FsManager {
             }
 
             if toRealm {
-                RealmManager.shared.save(nil,
+                RealmManager.shared.save(toRealmObject,
                                          content: result,
                                          type: .realmObject,
                                          isUpdate: toRealmUpdate,
@@ -241,6 +244,7 @@ extension FsManager {
         }
 
         public func decodeArray<T: Codable>(_ json: JSON,
+                                            toRealmObject: Object.Type? = nil,
                                             toRealm: Bool = false,
                                             toRealmUpdate: Bool = false,
                                             toRealmDeleteFirst: Bool = false) -> [T]? {
@@ -255,7 +259,7 @@ extension FsManager {
             }
 
             if toRealm {
-                RealmManager.shared.save(nil,
+                RealmManager.shared.save(toRealmObject,
                                          content: result,
                                          type: .realmObjectArray,
                                          isUpdate: toRealmUpdate,
