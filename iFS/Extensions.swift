@@ -67,16 +67,21 @@ extension UIViewController {
         }
     }
 
-    public func msgBox(_ title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.view.tintColor = UIColor.red
-
-        alertController.addAction(UIAlertAction(title: "Chiudi", style: .default, handler: { (_) in
-            alertController.dismiss(animated: true, completion: nil)
-        }))
-
+    public func msgBox(_ title: String, message: String, closeActionTitle: String) {
         if self.presentedViewController == nil {
-            self.present(alertController, animated: true, completion: nil)
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertController.view.tintColor = UIColor.red
+
+            alertController.addAction(UIAlertAction(title: closeActionTitle, style: .default, handler: { (_) in
+                alertController.dismiss(animated: true, completion: nil)
+            }))
+
+            DispatchQueue.main.async {
+                self.present(alertController, animated: true, completion: nil)
+            }
+
+        } else {
+            FsManager.shared.debug("Error: another viewController is already presented")
         }
     }
 
