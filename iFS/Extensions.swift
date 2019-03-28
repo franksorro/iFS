@@ -116,13 +116,13 @@ extension UIViewController {
 
         if isChild {
             self.view.addSubview(vwToast)
-            self.view.bringSubview(toFront: vwToast)
+            self.view.bringSubviewToFront(vwToast)
 
         } else {
             guard let topVC = UIApplication.shared.keyWindow?.rootViewController else { return }
             vwToast.frame = CGRect(x: padding.left, y: padding.top, width: topVC.view.frame.width, height: 1)
             topVC.view.addSubview(vwToast)
-            topVC.view.bringSubview(toFront: vwToast)
+            topVC.view.bringSubviewToFront(vwToast)
         }
 
         vwToast.backgroundColor = background
@@ -316,8 +316,8 @@ extension UIImageView {
 
 extension UIFont {
 
-    public func withTraits(_ traits: UIFontDescriptorSymbolicTraits...) -> UIFont {
-        let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits(traits))
+    public func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))
         return UIFont(descriptor: descriptor!, size: 0)
     }
 
@@ -345,8 +345,8 @@ extension UINavigationController {
         self.navigationBar.barTintColor = FsManager.Resources.navigationBarColor
         self.navigationBar.barStyle = .black
         self.navigationBar.titleTextAttributes = [
-            NSAttributedStringKey.font: FsManager.Resources.navigationBarFont,
-            NSAttributedStringKey.foregroundColor: UIColor.white
+            NSAttributedString.Key.font: FsManager.Resources.navigationBarFont,
+            NSAttributedString.Key.foregroundColor: UIColor.white
         ]
     }
 
@@ -361,12 +361,12 @@ extension UINavigationItem {
 
     public func customBackButton(_ sender: UIViewController, isInitialView: Bool = false) {
         let btBack = UIButton(type: .custom)
-        btBack.setImage(FsManager.Resources.navigationBackImage, for: UIControlState())
+        btBack.setImage(FsManager.Resources.navigationBackImage, for: UIControl.State())
         btBack.imageView?.tintColor = FsManager.Resources.navigationBackColor
         btBack.sizeToFit()
         btBack.addTarget(sender,
                          action: isInitialView ? #selector(sender.goRoot) : #selector(sender.goBack),
-                         for: UIControlEvents.touchUpInside)
+                         for: UIControl.Event.touchUpInside)
         self.leftBarButtonItem = UIBarButtonItem(customView: btBack)
     }
 
@@ -377,7 +377,7 @@ extension UITableViewCell {
     public func getHeight() -> CGFloat {
         self.layoutIfNeeded()
         var height: CGFloat = self.frame.height
-        let size = self.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        let size = self.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         if size.height > height {
             height = size.height
 
@@ -390,15 +390,12 @@ extension UITableViewCell {
 extension Data {
 
     var md5String: String {
-        var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        var digestHex = ""
-        self.withUnsafeBytes { (bytes: UnsafePointer<CChar>) -> Void in
-            CC_MD5(bytes, CC_LONG(self.count), &digest)
-            for index in 0..<Int(CC_MD5_DIGEST_LENGTH) {
-                digestHex += String(format: "%02x", digest[index])
-            }
+        let hash = self.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> [UInt8] in
+            var hash = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+            CC_MD5(bytes.baseAddress, CC_LONG(self.count), &hash)
+            return hash
         }
-        return digestHex
+        return hash.map { String(format: "%02x", $0) }.joined()
     }
 
     func hexString() -> String {
@@ -442,20 +439,14 @@ extension Data {
 
 extension String {
 
-    func md5() -> Data {
-        let messageData = self.data(using: .utf8)!
-        var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-
-        _ = digestData.withUnsafeMutableBytes {digestBytes in
-            messageData.withUnsafeBytes {messageBytes in
-                CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
-            }
+    var md5: String {
+        let data = Data(self.utf8)
+        let hash = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> [UInt8] in
+            var hash = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+            CC_MD5(bytes.baseAddress, CC_LONG(data.count), &hash)
+            return hash
         }
-        return digestData
-    }
-
-    public func md5() -> String {
-        return self.data(using: .utf8)!.md5String
+        return hash.map { String(format: "%02x", $0) }.joined()
     }
 
     public func isValidEmail() -> Bool {
@@ -619,7 +610,7 @@ extension String {
         let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect,
                                             options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                            attributes: [NSAttributedStringKey.font: font],
+                                            attributes: [NSAttributedString.Key.font: font],
                                             context: nil)
         return boundingBox.height
     }
@@ -691,7 +682,7 @@ extension UIView {
 
             loading.hidesWhenStopped = true
             loading.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-            loading.activityIndicatorViewStyle = .whiteLarge
+            loading.style = .whiteLarge
             loading.layer.cornerRadius = 10.0
             loading.translatesAutoresizingMaskIntoConstraints = false
             loading.startAnimating()

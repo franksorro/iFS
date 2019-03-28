@@ -72,9 +72,9 @@ extension FsManager {
             )
 
             sideMenuContainerView.addSubview(sideMenuView)
-            sideMenuContainerView.bringSubview(toFront: sideMenuView)
+            sideMenuContainerView.bringSubviewToFront(sideMenuView)
 
-            container.addChildViewController(injectViewController!)
+            container.addChild(injectViewController!)
 
             injectViewController!.view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -116,7 +116,7 @@ extension FsManager {
 
             NSLayoutConstraint.activate([leadingAnchor, topAnchor, trailingAnchor, bottomAnchor] )
 
-            injectViewController!.didMove(toParentViewController: container)
+            injectViewController!.didMove(toParent: container)
 
             var directionToSwipe: UISwipeGestureRecognizer.Direction
             SideMenu.shared.direction = direction
@@ -200,7 +200,7 @@ extension FsManager {
 
         private func resetViews() {
             if injectedViewController != nil {
-                injectedViewController.removeFromParentViewController()
+                injectedViewController.removeFromParent()
                 injectedViewController = nil
             }
 
