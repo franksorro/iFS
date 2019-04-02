@@ -17,10 +17,10 @@ extension FsManager {
 
         private override init() {}
 
-        func verifyReceipt(productID: String,
-                           sharedKey: String,
-                           isSandBox: Bool = false,
-                           completion: @escaping (_ jResult: JSON) -> Void = { _ in }) {
+        public func verifyReceipt(_ productID: String,
+                                  sharedKey: String,
+                                  isSandBox: Bool = false,
+                                  completion: @escaping (_ jResult: JSON) -> Void = { _ in }) {
             var result: Types.InAppPurchaseResults = .noTest
 
             var iapResult: JSON = [

@@ -15,6 +15,7 @@ extension FsManager {
 
         //---Api---
         private static let kMegabyte: Int = 1024 * 1024
+
         public static var urlCachePolicy = URLRequest.CachePolicy.returnCacheDataElseLoad
         public static var urlCacheTimeoutInterval: TimeInterval = 20.0
         public static var urlCacheMemoryCapacity: Int = 1 * kMegabyte
@@ -26,6 +27,12 @@ extension FsManager {
         public static let urlCache = URLCache(memoryCapacity: urlCacheMemoryCapacity,
                                               diskCapacity: urlCacheDiskCapacity,
                                               diskPath: urlCacheDiskPath)
+
+        public static var apiKeyName = "apiKey"
+        public static var apiKeyValue = "IFS001"
+        public static var apiContentType = Types.ContentTypes.json
+        public static var apiAccept = Types.AcceptTypes.json
+        public static var apiTrustDomain = "sorrentino.it"
         //---*---
 
         //---Default font---
