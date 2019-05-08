@@ -1,8 +1,24 @@
 # iFS
 Development facilities for iOS 9+ to support developer in speeding up certain operations that can be used frequently
- 
- ## InApp purchase verify
- ```
+
+[![contact](https://img.shields.io/badge/Contact-@FrankSorro-blue.svg)](https://twitter.com/franksorro) ![platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg) [![cocoapods](https://img.shields.io/badge/CocoaPods-v1.15-orange.svg)](https://cocoapods.org/pods/ifs) [![carthage](https://img.shields.io/badge/Carthage-compatible-green.svg)](https://github.com/Carthage/Carthage) ![license](https://img.shields.io/badge/License-MIT-darkgray.svg)
+
+# Installation
+
+## CocoaPods
+```sh
+pod 'iFS'
+```
+
+## Manually
+```sh
+Imports iFS framework and the related frameworks dependencies in your project
+```
+
+# Features
+
+## InApp purchase verify
+```sh
 FsManager.InAppPurchase.shared.verifyReceipt(productID: "ProductID001", sharedKey: "XXX", isSandBox: true) { (jResult) in
 	print("Output: \(jResult)")
 }
@@ -14,7 +30,7 @@ The verification involves the use of the product ID and the shared key. The poss
  * CANCEL (Canceled for a refund request)
 
 ## SideMenu
-```
+```sh
 let sideMenuVC = sideMenuViewController() 
 if self.navigationController != nil {
 	FsManager.SideMenu.shared.open(direction: .left, container: self.navigationController!, injectViewController: sideMenuVC)
@@ -22,7 +38,7 @@ if self.navigationController != nil {
 ```
 
 ## Parsing JSON to codable model
-```
+```sh
 extension FsManager.Models {
 
     class Base: Codable {
@@ -104,11 +120,11 @@ let user: FsManager.Models.User = FsManager.Models.shared.decode(json: jsonUser)
 
 ## Read/write Realm model
 Save to Realm entire model:
-```
+```sh
 let user: FsManager.Models.User = FsManager.Models.shared.decode(json: jsonUser, toRealm: true, toRealmUpdate: true)
 ```
 Save to Realm only codable necessary model:
-```
+```sh
 extension FsManager.Models {
 
     class User: Base {
@@ -185,7 +201,7 @@ if let userToRealm = user.data {
 ```
 
 ## Api rest
-```
+```sh
 FsManager.Api.shared.rest("Url api rest", .get, [:], nil, .json, true, completion: { (success, result, response, errorLevel, errorMsg) in
 	print("Success: \(success)")
 	print("Result: \(result)")
@@ -196,7 +212,7 @@ FsManager.Api.shared.rest("Url api rest", .get, [:], nil, .json, true, completio
 ```
 
 ## License
-```
+```sh
 The MIT License (MIT)
 
 Copyright (c) 2018 Francesco Sorrentino
