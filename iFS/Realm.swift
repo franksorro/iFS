@@ -175,10 +175,16 @@ extension FsManager {
                                 }
 
                                 if realmObject != nil {
-                                    realm.create(realmObject!, value: realmContent, update: true)
+                                    realm.create(realmObject!, value: realmContent, update: .all)
 
                                 } else {
-                                    realm.add(realmContent, update: isUpdate)
+                                    if isUpdate {
+                                        realm.add(realmContent, update: .all)
+
+                                    } else {
+                                        realm.add(realmContent)
+                                    }
+
                                 }
 
                             case .realmObjectArray:
@@ -199,7 +205,12 @@ extension FsManager {
                                 }
 
                                 realmObjects.forEach({ (realmObject) in
-                                    realm.add(realmObject, update: isUpdate)
+                                    if isUpdate {
+                                        realm.add(realmObject, update: .all)
+
+                                    } else {
+                                        realm.add(realmObject)
+                                    }
                                 })
 
                             case .jsonArray:
@@ -238,7 +249,12 @@ extension FsManager {
                                             return
                                     }
 
-                                    realm.create(realmObject!, value: jRealm, update: isUpdate)
+                                    if isUpdate {
+                                        realm.create(realmObject!, value: jRealm, update: .all)
+
+                                    } else {
+                                        realm.create(realmObject!, value: jRealm)
+                                    }
                                 })
 
                             default:
@@ -260,7 +276,12 @@ extension FsManager {
                                         return
                                 }
 
-                                realm.create(realmObject!, value: jRealm, update: isUpdate)
+                                if isUpdate {
+                                    realm.create(realmObject!, value: jRealm, update: .all)
+
+                                } else {
+                                    realm.create(realmObject!, value: jRealm)
+                                }
                             }
                         }
 

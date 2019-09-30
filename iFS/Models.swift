@@ -238,7 +238,6 @@ extension FsManager {
                 RealmManager.shared.save(toRealmObject,
                                          content: result,
                                          type: .realmObject,
-                                         isUpdate: toRealmUpdate,
                                          deleteBeforeInsert: toRealmDeleteFirst)
             }
 

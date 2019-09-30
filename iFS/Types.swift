@@ -39,8 +39,10 @@ public struct Types {
         case iPad
         case iPod
         case appleTv
+        case appleWatch
         case simulator
         case undefined
+        case homePod
     }
 
     public enum DeviceModels {
@@ -65,6 +67,9 @@ public struct Types {
         case iPhoneXS
         case iPhoneXSMax
         case iPhoneXR
+        case iPhone11
+        case iPhone11Pro
+        case iPhone11ProMax
 
         //---iPad---
         case iPad
@@ -77,12 +82,15 @@ public struct Types {
         case iPad4
         case iPadAir
         case iPadAir2
+        case iPadAir3
         case iPadPro97
         case iPadPro129
         case iPadPro2129
         case iPadPro105
         case iPad5Th
         case iPad6Th
+        case iPadPro11
+        case iPadPro3129
 
         case iPodTouch
         case iPodTouch2
@@ -96,6 +104,15 @@ public struct Types {
         case appleTv3
         case appleTv4
         case appleTv4K
+
+        case appleWatch
+        case appleWatch1
+        case appleWatch2
+        case appleWatch3
+        case appleWatch4
+        case appleWatch5
+
+        case homePod
 
         case simulator
         case undefined
