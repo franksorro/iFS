@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "iFS"
-  s.version      = "1.15"
+  s.version      = "2.0"
   s.summary      = "Development facilities for iOS 9+"
 
   # This description is used to generate tags and improve search results.
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Specify the location from where the source should be retrieved.
   #  Supports git, hg, bzr, svn and HTTP.
   #
-  s.source       = { :git => "https://github.com/franksorro/iFS.git", :tag => "v1.15" }
+  s.source       = { :git => "https://github.com/franksorro/iFS.git", :tag => "v2.0" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #

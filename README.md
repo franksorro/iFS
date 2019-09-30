@@ -1,7 +1,7 @@
 # iFS
 Development facilities for iOS 9+ to support developer in speeding up certain operations that can be used frequently
 
-[![contact](https://img.shields.io/badge/Contact-@FrankSorro-blue.svg)](https://twitter.com/franksorro) ![platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg) [![cocoapods](https://img.shields.io/badge/CocoaPods-v1.15-orange.svg)](https://cocoapods.org/pods/ifs) [![carthage](https://img.shields.io/badge/Carthage-compatible-green.svg)](https://github.com/Carthage/Carthage) ![license](https://img.shields.io/badge/License-MIT-darkgray.svg)
+[![contact](https://img.shields.io/badge/Contact-@FrankSorro-blue.svg)](https://twitter.com/franksorro) ![platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg) [![cocoapods](https://img.shields.io/badge/CocoaPods-v2.0-orange.svg)](https://cocoapods.org/pods/ifs) [![carthage](https://img.shields.io/badge/Carthage-compatible-green.svg)](https://github.com/Carthage/Carthage) ![license](https://img.shields.io/badge/License-MIT-darkgray.svg)
 
 # Installation
 
