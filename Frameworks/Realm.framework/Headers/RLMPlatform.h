@@ -16,7 +16,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#ifdef REALM_BUILDING_FOR_MACOSX
+#ifdef REALM_BUILDING_FOR_MACOS
 #if !__is_target_os(macosx)
 #error Attempting to use Realm's macOS framework in a non-macOS target.
 #endif
@@ -28,10 +28,8 @@
 #endif
 #endif
 
-#ifdef REALM_BUILDING_FOR_IOS
 #if !__is_target_os(ios) || __is_target_environment(macabi)
 #error Attempting to use Realm's iOS framework in a non-iOS target.
-#endif
 #endif
 
 #ifdef REALM_BUILDING_FOR_TVOS

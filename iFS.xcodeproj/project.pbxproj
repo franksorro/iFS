@@ -18,12 +18,8 @@
 		F716C20621552E11000ECE98 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716C20521552E11000ECE98 /* Resources.swift */; };
 		F716C20821552E4A000ECE98 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F716C20721552E4A000ECE98 /* InAppPurchase.swift */; };
 		F71F3914216B888600B21E56 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71F3913216B888600B21E56 /* Realm.swift */; };
-		F71F3917216B88DF00B21E56 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71F3915216B88DF00B21E56 /* Realm.framework */; };
-		F71F3918216B88DF00B21E56 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71F3916216B88DF00B21E56 /* RealmSwift.framework */; };
 		F72AA90E1FA0C26E000CFE5B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72AA90D1FA0C26E000CFE5B /* Extensions.swift */; };
 		F730F7231E097678005478F4 /* iFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F730F7221E097678005478F4 /* iFS.swift */; };
-		F7782AD721C7AD06009C3C53 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7782AD621C7AD06009C3C53 /* CommonCrypto.framework */; };
-		F7D339AE2167A65900BF2A1A /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D339AD2167A65900BF2A1A /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,10 +49,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7782AD721C7AD06009C3C53 /* CommonCrypto.framework in Frameworks */,
-				F71F3917216B88DF00B21E56 /* Realm.framework in Frameworks */,
-				F7D339AE2167A65900BF2A1A /* SwiftyJSON.framework in Frameworks */,
-				F71F3918216B88DF00B21E56 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
